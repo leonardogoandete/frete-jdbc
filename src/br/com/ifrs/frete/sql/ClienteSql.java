@@ -5,7 +5,8 @@ public enum ClienteSql {
     LISTALL("SELECT * FROM cliente"),
     DELETE("DELETE FROM cliente WHERE cpf= ?"),
     UPDATE("UPDATE cliente SET nome= ? WHERE cpf= ?"),
-    FINDBYID("SELECT * FROM cliente WHERE idCliente= ?");
+    FINDBYID("SELECT * FROM cliente WHERE idCliente= ?"),
+    FINDBYNOME("SELECT * FROM cliente WHERE nome= ?");
 
     private final String query;
 

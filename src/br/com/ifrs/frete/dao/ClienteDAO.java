@@ -98,4 +98,25 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         }
         return null;
     }
+
+    @Override
+    public Cliente findByName(String nome) {
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(ClienteSql.FINDBYNOME.getQuery())) {
+            stmt.setString(1,nome.toLowerCase());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Cliente(
+                        rs.getString("nome"),
+                        rs.getString("endereco"),
+                        rs.getString("telefone"),
+                        rs.getString("cpf"),
+                        rs.getInt("numero")
+                );
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao buscar Cliente por nome!\n" + ex.getMessage());
+        }
+        return null;
+    }
 }
