@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  #servidor banco de dados
+  db:
+    image: mysql
+    environment:
+      #Senha do user 'root'
+      MYSQL_ROOT_PASSWORD: example
+      #Nome da base de dados
+      MYSQL_DATABASE: db
+      #Usuario da base
+      MYSQL_USER: leo
+      #Senha da base
+      MYSQL_PASSWORD: leo
+      #expose: 3306
+    network_mode: host
+  # gerenciador de base de dados
+  adminer:
+    image: adminer
+    environment:
+      ADMINER_DESIGN: nette
+      #ADMINER_DEFAULT_SERVER: ip-banco
+    network_mode: host
