@@ -8,7 +8,6 @@ import javax.swing.*;
 public class Menu {
     public static void main(String[] args) {
         ClienteDAO clienteDAO = new ClienteDAO();
-        Cliente cliente;
         while (true) {
             switch (exibeMenu()) {
                 case 1:
