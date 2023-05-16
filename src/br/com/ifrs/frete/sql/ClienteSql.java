@@ -1,7 +1,7 @@
 package br.com.ifrs.frete.sql;
 
 public enum ClienteSql {
-    INSERT("INSERT INTO cliente(nome, endereco, telefone, cpf, numero) VALUES (?, ?, ?, ?, ?)"),
+    INSERT("INSERT INTO cliente(nome, endereco, telefone, cpf) VALUES (?, ?, ?, ?)"),
     LISTALL("SELECT * FROM cliente"),
     DELETE("DELETE FROM cliente WHERE cpf= ?"),
     UPDATE("UPDATE cliente SET nome= ? WHERE cpf= ?"),

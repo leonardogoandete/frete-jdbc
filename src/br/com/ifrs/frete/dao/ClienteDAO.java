@@ -4,10 +4,7 @@ import br.com.ifrs.frete.factory.ConnectionFactory;
 import br.com.ifrs.frete.model.Cliente;
 import br.com.ifrs.frete.sql.ClienteSql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,9 +18,10 @@ public class ClienteDAO implements GenericDAO<Cliente> {
             stmt.setString(2, obj.getEndereco().toLowerCase());
             stmt.setString(3, obj.getTelefone());
             stmt.setString(4, obj.getCpf());
-            stmt.setInt(5, obj.getNumero());
             stmt.execute();
             return true;
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao inserir cliente no banco");
         } catch (SQLException ex) {
             System.out.println("Erro ao inserir Cliente!\n" + ex.getMessage() + "\n" + ex.getSQLState());
         }
@@ -37,6 +35,8 @@ public class ClienteDAO implements GenericDAO<Cliente> {
             stmt.setString(1, obj.getNome().toLowerCase()); //Nome para alterar
             stmt.setString(2,obj.getCpf().toLowerCase()); //busca pelo CPF para alterar
             return stmt.executeUpdate();
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao atualizar o cliente");
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar cliente!\n" + ex.getMessage());
         }
@@ -49,7 +49,9 @@ public class ClienteDAO implements GenericDAO<Cliente> {
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.DELETE.getQuery())) {
             stmt.setString(1, obj.getCpf());
             return stmt.executeUpdate();
-        }catch (SQLException ex){
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao deletar cliente");
+        } catch (SQLException ex){
             System.out.println("Erro ao deletar cliente!\n"+ex.getMessage());
         }
         return -1;
@@ -67,11 +69,12 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                         rs.getString("nome"),
                         rs.getString("endereco"),
                         rs.getString("telefone"),
-                        rs.getString("cpf"),
-                        rs.getInt("numero")
+                        rs.getString("cpf")
                 ));
             }
             return listaClientes;
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao consultar lista de clientes");
         } catch (SQLException ex) {
             System.out.println("Erro ao listar todos os Clientes!\n" + ex.getMessage());
         }
@@ -89,10 +92,11 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                         rs.getString("nome"),
                         rs.getString("endereco"),
                         rs.getString("telefone"),
-                        rs.getString("cpf"),
-                        rs.getInt("numero")
+                        rs.getString("cpf")
                 );
             }
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao consultar cliente por ID");
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar Cliente por ID!\n" + ex.getMessage());
         }
@@ -110,10 +114,11 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                         rs.getString("nome"),
                         rs.getString("endereco"),
                         rs.getString("telefone"),
-                        rs.getString("cpf"),
-                        rs.getInt("numero")
+                        rs.getString("cpf")
                 );
             }
+        } catch (SQLTimeoutException ex){
+            System.out.println("Timeout ao consultar cliente pelo nome");
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar Cliente por nome!\n" + ex.getMessage());
         }

@@ -1,9 +1,12 @@
 package br.com.ifrs.frete.model;
 
+import br.com.ifrs.frete.dao.ClienteDAO;
+
+import java.util.List;
+
 public class Cliente extends Pessoa{
     private static int numeroClientes = 1;
     private String endereco, telefone, cpf;
-    private int numero;
 
     public Cliente(){}
 
@@ -12,16 +15,7 @@ public class Cliente extends Pessoa{
         this.endereco = endereco;
         this.telefone = telefone;
         this.cpf = cpf;
-        this.numero = numeroClientes;
-        numeroClientes++;
-    }
-
-    public Cliente(String nome, String endereco, String telefone, String cpf, int numero) {
-        super(nome);
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.cpf = cpf;
-        this.numero = numero;
+        this.numeroClientes++;
     }
 
     public String getEndereco() {
@@ -48,14 +42,6 @@ public class Cliente extends Pessoa{
         this.cpf = cpf;
     }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
     public int getTotal(){
         return numeroClientes - 1;
     }
@@ -65,7 +51,42 @@ public class Cliente extends Pessoa{
         return "\nNome: " + super.toString() +
                 "\nEndereço: " + getEndereco() +
                 "\nTelefone: " + getTelefone() +
-                "\nCPF: " + getCpf() +
-                "\nNumero: " + getNumero() + "\n";
+                "\nCPF: " + getCpf()+"\n";
+    }
+
+    public boolean cadastrarCliente(Cliente cli){
+        try {
+            return new ClienteDAO().insert(cli);
+        }catch (Exception e){
+            System.out.println("Erro ao cadastrar um cliente!\n" +  e.getMessage());
+            return false;
+        }
+    }
+
+    public Cliente pesquisarClientePorNome(String nome){
+        try {
+            return new ClienteDAO().findByName(nome);
+        }catch (Exception e){
+            System.out.println("Erro ao pesquisar cliente por nome\n" + e.getMessage());
+            return null;
+        }
+    }
+
+    public int deletarClientePorCpf(Cliente cli){
+        try {
+            return new ClienteDAO().delete(cli);
+        }catch (Exception e){
+            System.out.println("Erro ao deletar o cliente utilizando CPF\n" + e.getMessage());
+            return 0;
+        }
+    }
+
+    public List<Cliente> listTodos(){
+        try{
+            return new ClienteDAO().listAll();
+        }catch (Exception e){
+            System.out.println("Erro ao listar os clientes\n" + e.getMessage());
+            return null;
+        }
     }
 }
