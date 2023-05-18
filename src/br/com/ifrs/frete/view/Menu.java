@@ -1,11 +1,13 @@
 package br.com.ifrs.frete.view;
 
 import br.com.ifrs.frete.model.Cliente;
+import br.com.ifrs.frete.dao.MinhaGen;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     private static final Cliente cliente = new Cliente();
+    private static final MinhaGen<Cliente> minhaGenCliente = new MinhaGen<>();
     private static final Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -13,16 +15,25 @@ public class Menu {
         while (true) {
             switch (exibeMenu()) {
                 case 1:
-                    cadastro();
+                    //cadastro();
+                    Cliente cliente1 = new Cliente("leonardo","Trav. Guedes da Luz 51","51991561597","18035208764");
+                    System.out.println(minhaGenCliente.insert(cliente1));
                     break;
                 case 2:
-                    pesquisar();
+                    //pesquisar();
+                    Cliente cli = new Cliente();
+                    cli.setNome("leonardo");
+                    System.out.println(minhaGenCliente.findByName(cli));
                     break;
                 case 3:
-                    excluir();
+                    Cliente cliCpf = new Cliente();
+                    cliCpf.setCpf("18035208764");
+                    minhaGenCliente.deleteWithCpf(cliCpf);
+                    //excluir();
                     break;
                 case 4:
-                    listarTodos();
+                    //listarTodos();
+                    System.out.println(minhaGenCliente.listAll());
                     break;
                 case 5:
                     System.exit(0);
