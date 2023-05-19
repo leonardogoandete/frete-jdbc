@@ -26,6 +26,7 @@ public class MenuMinhaGen {
                     listarTodos();
                     break;
                 case 5:
+                    System.out.println("Saindo...");
                     System.exit(0);
                     break;
                 default:
@@ -83,6 +84,7 @@ public class MenuMinhaGen {
     public static void excluir() {
         try {
             if (!minhaGenCliente.obterTodos().isEmpty()) {
+                System.out.println("=== Exclusão ===");
                 System.out.println("Digite o CPF:");
                 String cpf = teclado.nextLine();
                 int resultado = minhaGenCliente.excluirPorCpf(cpf);
