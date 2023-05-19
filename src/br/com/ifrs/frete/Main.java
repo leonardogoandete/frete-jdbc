@@ -1,11 +1,11 @@
 package br.com.ifrs.frete;
 
-import br.com.ifrs.frete.dao.MinhaGen_old;
+import br.com.ifrs.frete.dao.MinhaGen;
 import br.com.ifrs.frete.model.Cliente;
 
 public class Main {
     public static void main(String[] args) {
-        MinhaGen_old<Cliente> listaDeClientes = new MinhaGen_old<>();
+        MinhaGen<Cliente> listaDeClientes = new MinhaGen<>();
         Cliente cliente = new Cliente("Laika","Travessa Teste 01","51999999999","78945612314");
         Cliente cliente1 = new Cliente("Katyuscha Maria", "Av Secundaria 888", "51988888888","74185296378");
         Cliente cli = new Cliente();

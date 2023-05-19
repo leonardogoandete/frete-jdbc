@@ -1,5 +1,7 @@
 package br.com.ifrs.frete.model;
 
+import java.util.Objects;
+
 public class Pessoa {
     private String nome;
 

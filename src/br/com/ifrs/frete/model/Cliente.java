@@ -3,6 +3,7 @@ package br.com.ifrs.frete.model;
 import br.com.ifrs.frete.dao.ClienteDAO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Cliente extends Pessoa{
     private static int numeroClientes = 1;
