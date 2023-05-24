@@ -67,6 +67,7 @@ public class Menu {
             System.out.println("Digite o nome para pesquisa:");
             String nomePesquisa = teclado.nextLine();
             Cliente clientePesquisado = cliente.pesquisarClientePorNome(nomePesquisa);
+
             if (clientePesquisado != null) {
                 System.out.println(clientePesquisado);
             } else {
@@ -83,8 +84,7 @@ public class Menu {
             System.out.println("Digite o CPF:");
             cli.setCpf(teclado.nextLine());
             int resultado = cliente.deletarClientePorCpf(cli);
-            if (resultado >= 1) System.out.println("Sucesso ao excluir o cliente!");
-            else if(resultado == 0) System.out.println("Não há cliente com o CPF informado!");
+            System.out.println((resultado >= 1) ? "Sucesso ao excluir o cliente!" : "Não há cliente com o CPF informado!");
         } catch (Exception e) {
             System.out.println("Erro genérico ao excluir cliente: " + e.getMessage());
         }
