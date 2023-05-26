@@ -7,7 +7,7 @@ import java.sql.SQLTimeoutException;
 
 public class ConnectionFactory {
     public Connection getConnection() {
-        String ip = "172.17.0.1";
+        String ip = "20.20.0.1";
         String port = "3306";
         String database = "db";
         String drive = "mysql";
@@ -23,7 +23,7 @@ public class ConnectionFactory {
         } catch (SQLException e) {
             System.out.println("Exceção SQL" + e.getMessage());
         } catch(ClassNotFoundException e){
-            System.out.println("Exceção Classe não encontrada");
+            System.out.println("Exceção driver não encontrado");
         }
         return null;
     }

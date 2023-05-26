@@ -1,5 +1,6 @@
 package br.com.ifrs.frete.view;
 
+import br.com.ifrs.frete.dao.MinhaGen;
 import br.com.ifrs.frete.model.Cliente;
 import java.util.List;
 import java.util.Scanner;
@@ -73,7 +74,7 @@ public class Menu {
                 System.out.println("Não existe cliente com o nome pesquisado!");
             }
         }catch (Exception e){
-            System.out.println("Erro ao pesquisar cleinte" + e.getMessage());
+            System.out.println("Erro ao pesquisar cliente" + e.getMessage());
         }
     }
 
@@ -93,16 +94,16 @@ public class Menu {
 
     public static void listarTodos() {
         try {
-            List<Cliente> clientes = cliente.listTodos();
-            if (!clientes.isEmpty()) {
-                for (Cliente cl : clientes) {
+            MinhaGen<Cliente> clientes = cliente.listTodos();
+            if (clientes.obterTodos().size() >= 1) {
+                for (Cliente cl : clientes.obterTodos()) {
                     System.out.println(cl.toString());
                 }
             } else {
                 System.out.println("Não há clientes na lista!");
             }
         } catch (Exception e) {
-            System.out.println("Erro genérico na listagem de clientes: " + e.getMessage());
+            System.out.println("Erro genérico na listagem de clientes!");
         }
     }
 }

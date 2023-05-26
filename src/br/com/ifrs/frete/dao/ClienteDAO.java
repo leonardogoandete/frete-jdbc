@@ -3,10 +3,8 @@ package br.com.ifrs.frete.dao;
 import br.com.ifrs.frete.factory.ConnectionFactory;
 import br.com.ifrs.frete.model.Cliente;
 import br.com.ifrs.frete.sql.ClienteSql;
-
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
+
 
 public class ClienteDAO implements GenericDAO<Cliente> {
 
@@ -58,14 +56,14 @@ public class ClienteDAO implements GenericDAO<Cliente> {
     }
 
     @Override
-    public List<Cliente> listAll() {
-        List<Cliente> listaClientes = new LinkedList<>();
+    public MinhaGen<Cliente> listAll() {
+        MinhaGen<Cliente> listaClientes = new MinhaGen<>();
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.LISTALL.getQuery())) {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                listaClientes.add(new Cliente(
+                listaClientes.adicionarLista(new Cliente(
                         rs.getString("nome"),
                         rs.getString("endereco"),
                         rs.getString("telefone"),

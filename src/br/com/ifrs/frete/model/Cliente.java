@@ -1,6 +1,7 @@
 package br.com.ifrs.frete.model;
 
 import br.com.ifrs.frete.dao.ClienteDAO;
+import br.com.ifrs.frete.dao.MinhaGen;
 
 import java.util.List;
 import java.util.Objects;
@@ -77,16 +78,16 @@ public class Cliente extends Pessoa{
         try {
             return new ClienteDAO().delete(cli);
         }catch (Exception e){
-            System.out.println("Erro ao deletar o cliente utilizando CPF\n" + e.getMessage());
+            System.out.println("Erro ao deletar o cliente utilizando CPF\n");
             return 0;
         }
     }
 
-    public List<Cliente> listTodos(){
+    public MinhaGen<Cliente> listTodos(){
         try{
             return new ClienteDAO().listAll();
         }catch (Exception e){
-            System.out.println("Erro ao listar os clientes\n" + e.getMessage());
+            System.out.println("Erro ao listar os clientes\n");
             return null;
         }
     }

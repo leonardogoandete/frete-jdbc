@@ -1,14 +1,10 @@
 package br.com.ifrs.frete.dao;
 
-import br.com.ifrs.frete.model.Cliente;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MinhaGen<T> {
-
     private final List<T> lista;
-
     public MinhaGen() {
         lista = new ArrayList<>();
     }
@@ -22,32 +18,6 @@ public class MinhaGen<T> {
             System.out.println("Erro desconhecido durante o cadastro " + e.getMessage());
         }
         return false;
-    }
-
-
-    public T pesquisarListaPorNome(String nome) {
-        for (T obj : lista) {
-            if (obj instanceof Cliente) {
-                Cliente cli = (Cliente) obj;
-                if (cli.getNome().equalsIgnoreCase(nome)) {
-                    return obj;
-                }
-            }
-        }
-        return null;
-    }
-
-    public int excluirPorCpf(String cpf) {
-        for (T obj : lista) {
-            if (obj instanceof Cliente) {
-                Cliente cli = (Cliente) obj;
-                if (cli.getCpf().equalsIgnoreCase(cpf)) {
-                    lista.remove(obj);
-                    return 1;
-                }
-            }
-        }
-        return 0;
     }
 
     public List<T> obterTodos() {

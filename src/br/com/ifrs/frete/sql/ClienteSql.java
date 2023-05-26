@@ -1,12 +1,12 @@
 package br.com.ifrs.frete.sql;
 
 public enum ClienteSql {
-    INSERT("INSERT INTO cliente(nome, endereco, telefone, cpf) VALUES (?, ?, ?, ?)"),
-    LISTALL("SELECT * FROM cliente"),
-    DELETE("DELETE FROM cliente WHERE cpf= ?"),
-    UPDATE("UPDATE cliente SET nome= ? WHERE cpf= ?"),
-    FINDBYID("SELECT * FROM cliente WHERE idCliente= ?"),
-    FINDBYNOME("SELECT * FROM cliente WHERE nome= ?");
+    INSERT("INSERT INTO clientes(nome, endereco, telefone, cpf) VALUES (?, ?, ?, ?)"),
+    LISTALL("SELECT * FROM clientes"),
+    DELETE("DELETE FROM clientes WHERE cpf= ?"),
+    UPDATE("UPDATE clientes SET nome= ? WHERE cpf= ?"),
+    FINDBYID("SELECT * FROM clientes WHERE idCliente= ?"),
+    FINDBYNOME("SELECT * FROM clientes WHERE nome= ?");
 
     private final String query;
 
