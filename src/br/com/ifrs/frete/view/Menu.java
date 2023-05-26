@@ -2,6 +2,7 @@ package br.com.ifrs.frete.view;
 
 import br.com.ifrs.frete.dao.MinhaGen;
 import br.com.ifrs.frete.model.Cliente;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -27,10 +28,12 @@ public class Menu {
                 case 5:
                     System.exit(0);
                     break;
+                case 6:
+                    createTableIfNotExists();
+                    break;
                 default:
                     System.out.println("Opção invalida!");
                     break;
-
             }
         }
     }
@@ -45,7 +48,6 @@ public class Menu {
     }
 
     public static void cadastro() {
-        try{
             System.out.println("=== Cadastro ===");
             System.out.println("Digite o nome:");
             String nome = teclado.nextLine();
@@ -56,13 +58,9 @@ public class Menu {
             System.out.println("Digite o CPF:");
             String cpf = teclado.nextLine();
             System.out.println(cliente.cadastrarCliente(new Cliente(nome, endereco, telefone, cpf)) ? "Sucesso ao cadastrar" : "Falha ao cadastrar");
-        }catch (Exception e){
-            System.out.println("Erro ao cadastrar cliente no banco!" + e.getMessage());
-        }
     }
 
     public static void pesquisar() {
-        try {
             System.out.println("=== Pesquisa ===");
             System.out.println("Digite o nome para pesquisa:");
             String nomePesquisa = teclado.nextLine();
@@ -73,37 +71,33 @@ public class Menu {
             } else {
                 System.out.println("Não existe cliente com o nome pesquisado!");
             }
-        }catch (Exception e){
-            System.out.println("Erro ao pesquisar cliente" + e.getMessage());
-        }
     }
 
     public static void excluir() {
-        try {
             Cliente cli = new Cliente();
             System.out.println("Digite o CPF:");
             cli.setCpf(teclado.nextLine());
             int resultado = cliente.deletarClientePorCpf(cli);
-            System.out.println((resultado >= 1) ? "Sucesso ao excluir o cliente!" : "Não há cliente com o CPF informado!");
-        } catch (Exception e) {
-            System.out.println("Erro genérico ao excluir cliente: " + e.getMessage());
-        }
+            System.out.println((resultado >= 1) ? "Sucesso ao excluir o cliente!" : "");
     }
 
-
     public static void listarTodos() {
-        try {
             MinhaGen<Cliente> clientes = cliente.listTodos();
-            if (clientes.obterTodos().size() >= 1) {
-                for (Cliente cl : clientes.obterTodos()) {
-                    System.out.println(cl.toString());
+            try {
+                if (clientes.obterTodos().size() >= 1) {
+                    for (Cliente cl : clientes.obterTodos()) {
+                        System.out.println(cl.toString());
+                    }
+                } else {
+                    System.out.println("Não há clientes na lista!");
                 }
-            } else {
-                System.out.println("Não há clientes na lista!");
+            }catch (Exception e){
+                System.out.println("Erro genérico ao listar todos os clientes");
             }
-        } catch (Exception e) {
-            System.out.println("Erro genérico na listagem de clientes!");
-        }
+    }
+
+    private static void createTableIfNotExists() {
+        cliente.criarTabela();
     }
 }
 

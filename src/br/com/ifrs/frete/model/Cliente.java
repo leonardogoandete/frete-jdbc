@@ -60,7 +60,7 @@ public class Cliente extends Pessoa{
         try {
             return new ClienteDAO().insert(cli);
         }catch (Exception e){
-            System.out.println("Erro ao cadastrar um cliente!\n" +  e.getMessage());
+            System.out.println("Erro ao cadastrar um cliente!\n");
             return false;
         }
     }
@@ -69,7 +69,7 @@ public class Cliente extends Pessoa{
         try {
             return new ClienteDAO().findByName(nome);
         }catch (Exception e){
-            System.out.println("Erro ao pesquisar cliente por nome\n" + e.getMessage());
+            System.out.println("Erro ao pesquisar cliente por nome\n");
             return null;
         }
     }
@@ -87,8 +87,17 @@ public class Cliente extends Pessoa{
         try{
             return new ClienteDAO().listAll();
         }catch (Exception e){
-            System.out.println("Erro ao listar os clientes\n");
+            System.out.println("Erro ao listar todos clientes\n");
             return null;
         }
+    }
+
+    public boolean criarTabela(){
+        try{
+            return new ClienteDAO().createTableIfNotExists();
+        }catch (Exception e){
+            System.out.println("Erro ao criar tabela CLIENTE\n");
+        }
+        return false;
     }
 }

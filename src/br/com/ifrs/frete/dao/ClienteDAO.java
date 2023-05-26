@@ -3,6 +3,7 @@ package br.com.ifrs.frete.dao;
 import br.com.ifrs.frete.factory.ConnectionFactory;
 import br.com.ifrs.frete.model.Cliente;
 import br.com.ifrs.frete.sql.ClienteSql;
+
 import java.sql.*;
 
 
@@ -18,7 +19,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
             stmt.setString(4, obj.getCpf());
             stmt.execute();
             return true;
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao inserir cliente no banco");
         } catch (SQLException ex) {
             System.out.println("Erro ao inserir Cliente!\n" + ex.getMessage() + "\n" + ex.getSQLState());
@@ -31,9 +32,9 @@ public class ClienteDAO implements GenericDAO<Cliente> {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.UPDATE.getQuery())) {
             stmt.setString(1, obj.getNome().toLowerCase()); //Nome para alterar
-            stmt.setString(2,obj.getCpf().toLowerCase()); //busca pelo CPF para alterar
+            stmt.setString(2, obj.getCpf().toLowerCase()); //busca pelo CPF para alterar
             return stmt.executeUpdate();
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao atualizar o cliente");
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar cliente!\n" + ex.getMessage());
@@ -47,10 +48,10 @@ public class ClienteDAO implements GenericDAO<Cliente> {
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.DELETE.getQuery())) {
             stmt.setString(1, obj.getCpf());
             return stmt.executeUpdate();
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao deletar cliente");
-        } catch (SQLException ex){
-            System.out.println("Erro ao deletar cliente!\n"+ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Erro ao deletar cliente!\n" + ex.getMessage());
         }
         return -1;
     }
@@ -71,7 +72,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                 ));
             }
             return listaClientes;
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao consultar lista de clientes");
         } catch (SQLException ex) {
             System.out.println("Erro ao listar todos os Clientes!\n" + ex.getMessage());
@@ -83,7 +84,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
     public Cliente findByID(int id) {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.FINDBYID.getQuery())) {
-            stmt.setInt(1,id);
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Cliente(
@@ -93,7 +94,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                         rs.getString("cpf")
                 );
             }
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao consultar cliente por ID");
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar Cliente por ID!\n" + ex.getMessage());
@@ -105,7 +106,7 @@ public class ClienteDAO implements GenericDAO<Cliente> {
     public Cliente findByName(String nome) {
         try (Connection connection = new ConnectionFactory().getConnection();
              PreparedStatement stmt = connection.prepareStatement(ClienteSql.FINDBYNOME.getQuery())) {
-            stmt.setString(1,nome.toLowerCase());
+            stmt.setString(1, nome.toLowerCase());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Cliente(
@@ -115,11 +116,23 @@ public class ClienteDAO implements GenericDAO<Cliente> {
                         rs.getString("cpf")
                 );
             }
-        } catch (SQLTimeoutException ex){
+        } catch (SQLTimeoutException ex) {
             System.out.println("Timeout ao consultar cliente pelo nome");
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar Cliente por nome!\n" + ex.getMessage());
         }
         return null;
+    }
+
+    public boolean createTableIfNotExists() {
+        try (Connection connection = new ConnectionFactory().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(ClienteSql.CREATE_TABLE_CLIENTE.getQuery())) {
+            return stmt.executeUpdate() == 1;
+        } catch (SQLTimeoutException e) {
+            System.out.println("Timeout ao criar tabela CLIENTE"+ e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar tabela CLIENTE!\n" + e.getMessage());
+        }
+        return false;
     }
 }

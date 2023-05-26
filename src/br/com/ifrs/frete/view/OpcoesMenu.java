@@ -6,7 +6,8 @@ public enum OpcoesMenu {
     LISTAR_TODOS(2,"Pesquisar Cliente usando nome"),
     TOT_CADASTRO(3,"Excluir Cliente usando cpf"),
     PESQ_PESSOA(4,"Listar todos os clientes"),
-    SAIR(5,"Sair");
+    SAIR(5,"Sair"),
+    CRIAR_TABELA_CLIENTE(6,"Criar tabela CLIENTE");
 
 
     private final int numero;

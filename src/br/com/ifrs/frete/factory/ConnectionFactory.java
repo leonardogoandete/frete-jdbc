@@ -13,15 +13,15 @@ public class ConnectionFactory {
         String drive = "mysql";
         try {
             // drive MySql Conector 5.0
-            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             // drive MySql Conector 8.0.30
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            //Class.forName("com.mysql.cj.jdbc.Driver");
             String urlBD="jdbc:"+drive+"://"+ip+":"+port+"/"+database;
             return DriverManager.getConnection(urlBD, "leo", "leo");
         } catch (SQLTimeoutException e){
             System.out.println("Excedeu o tempo limite: Time-out" + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("Exceção SQL" + e.getMessage());
+            System.out.println("Exceção SQL " + e.getMessage());
         } catch(ClassNotFoundException e){
             System.out.println("Exceção driver não encontrado");
         }
