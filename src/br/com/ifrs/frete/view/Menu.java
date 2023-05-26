@@ -2,7 +2,6 @@ package br.com.ifrs.frete.view;
 
 import br.com.ifrs.frete.dao.MinhaGen;
 import br.com.ifrs.frete.model.Cliente;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
