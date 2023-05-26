@@ -12,28 +12,34 @@ public class Menu {
     public static void main(String[] args) {
 
         while (true) {
-            switch (exibeMenu()) {
-                case 1:
-                    cadastro();
-                    break;
-                case 2:
-                    pesquisar();
-                    break;
-                case 3:
-                    excluir();
-                    break;
-                case 4:
-                    listarTodos();
-                    break;
-                case 5:
-                    System.exit(0);
-                    break;
-                case 6:
-                    createTableIfNotExists();
-                    break;
-                default:
-                    System.out.println("Opção invalida!");
-                    break;
+            try {
+                switch (exibeMenu()) {
+                    case 1:
+                        cadastro();
+                        break;
+                    case 2:
+                        pesquisar();
+                        break;
+                    case 3:
+                        excluir();
+                        break;
+                    case 4:
+                        listarTodos();
+                        break;
+                    case 5:
+                        System.exit(0);
+                        break;
+                    case 6:
+                        createTableIfNotExists();
+                        break;
+                    default:
+                        System.out.println("Opção invalida!");
+                        break;
+                }
+            }catch (NumberFormatException e){
+                System.out.println("Opção digitada não é um numero!");
+            }catch (Exception e){
+                System.out.println("Erro inesperado no bloco switch-case");
             }
         }
     }
@@ -78,7 +84,12 @@ public class Menu {
             System.out.println("Digite o CPF:");
             cli.setCpf(teclado.nextLine());
             int resultado = cliente.deletarClientePorCpf(cli);
-            System.out.println((resultado >= 1) ? "Sucesso ao excluir o cliente!" : "");
+
+            if (resultado >= 1) {
+                System.out.println("Sucesso ao excluir o cliente!");
+            } else {
+                System.out.println("Não existe cliente com o nome pesquisado!");
+            }
     }
 
     public static void listarTodos() {
